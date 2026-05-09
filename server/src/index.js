@@ -31,7 +31,8 @@ app.use('/api', apiRouter)
 if (process.env.NODE_ENV === 'production') {
   const dist = path.join(__dirname, '../../client/dist')
   app.use(express.static(dist))
-  app.get('*', (_req, res) => res.sendFile(path.join(dist, 'index.html')))
+  // Express v5 (path-to-regexp v6) doesn't accept '*' as a route pattern
+  app.get('/*', (_req, res) => res.sendFile(path.join(dist, 'index.html')))
 }
 
 const port = Number(process.env.PORT || 3001)
