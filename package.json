@@ -1,0 +1,20 @@
+{
+  "name": "ellora",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently -n server,client -c green,blue \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "postinstall": "npm --prefix server install && npm --prefix client install",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix server run start"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Team Task Manager (MERN) - Railway deployable",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
