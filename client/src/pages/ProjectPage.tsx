@@ -188,11 +188,21 @@ export default function ProjectPage() {
                         <select
                           value={t.status}
                           onChange={async (e) => {
-                            await api(`/api/tasks/${t.id}`, {
-                              method: 'PATCH',
-                              json: { status: e.target.value },
-                            })
-                            await load()
+                            const nextStatus = e.target.value as Task['status']
+                            const prev = t.status
+                            setTasks((cur) => cur.map((x) => (x.id === t.id ? { ...x, status: nextStatus } : x)))
+                            try {
+                              setError(null)
+                              await api(`/api/tasks/${t.id}`, {
+                                method: 'PATCH',
+                                json: { status: nextStatus },
+                              })
+                              await load()
+                            } catch (err: any) {
+                              // revert on failure
+                              setTasks((cur) => cur.map((x) => (x.id === t.id ? { ...x, status: prev } : x)))
+                              setError(err?.message || 'Failed to update status')
+                            }
                           }}
                         >
                           <option value="TODO">TODO</option>

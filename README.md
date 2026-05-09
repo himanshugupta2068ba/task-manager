@@ -80,12 +80,4 @@ Use one of:
 
 When deployed, the Express server serves the React app from the same domain.
 
-## Demo video (2–5 min)
-
-Suggested flow:
-- Signup/login
-- Create a project (you become ADMIN)
-- Invite a second user (MEMBER)
-- Create tasks, assign, change statuses, show overdue
-- Open dashboard
 
