@@ -31,8 +31,9 @@ app.use('/api', apiRouter)
 if (process.env.NODE_ENV === 'production') {
   const dist = path.join(__dirname, '../../client/dist')
   app.use(express.static(dist))
-  // Express v5 (path-to-regexp v6) doesn't accept '*' as a route pattern
-  app.get('/*', (_req, res) => res.sendFile(path.join(dist, 'index.html')))
+  // Express v5 (path-to-regexp v6): prefer regex for SPA fallback.
+  // This serves the React app for any non-API route.
+  app.get(/^(?!\/api).*/, (_req, res) => res.sendFile(path.join(dist, 'index.html')))
 }
 
 const port = Number(process.env.PORT || 3001)
